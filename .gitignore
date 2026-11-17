@@ -1,3 +1,15 @@
+node_modules/
+dist/
+dist-ts/
+tools/
+core/target/
+public/core/*.wasm
+public/fonts/*.ttf
+public/fonts/*.ttc
+public/fonts/*.otf
+test/fonts/
+*.log
+
 .env
 .env.*
 !.env.example
@@ -12,7 +24,6 @@ secrets.*
 credentials*.json
 .npmrc
 .pypirc
-node_modules/
 __pycache__/
 .venv/
 venv/

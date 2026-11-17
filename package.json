@@ -1,0 +1,20 @@
+{
+  "name": "ttfont-wasm-renderer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "TrueType parsing/hinting/rasterization in WebAssembly with a TypeScript comparison UI",
+  "scripts": {
+    "build:core": "powershell -ExecutionPolicy Bypass -File core/build.ps1",
+    "dev": "vite",
+    "build": "npm run build:core && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "node test/run-tests.mjs",
+    "bench": "node test/bench.mjs"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "^0.1.80",
+    "typescript": "^5.7.0",
+    "vite": "^6.2.0"
+  }
+}

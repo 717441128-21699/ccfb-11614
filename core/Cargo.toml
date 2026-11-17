@@ -1,0 +1,18 @@
+[package]
+name = "ttfont-core"
+version = "0.1.0"
+edition = "2021"
+description = "Zero-dependency TrueType parser, bytecode hint interpreter and analytic-AA rasterizer"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+# Only the wasm32 target is used by the product; native target is used for unit tests.

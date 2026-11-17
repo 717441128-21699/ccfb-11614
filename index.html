@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrueType WASM 渲染器 — 自研 vs 系统</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>TrueType 自研渲染器 <span class="sub">WASM 内核 · 字节码微调 · 解析抗锯齿</span></h1>
+    </header>
+
+    <section class="controls">
+      <div class="control">
+        <label>字体文件</label>
+        <input type="file" id="font-file" accept=".ttf,.ttc,.otf" />
+        <span id="font-name" class="muted">未加载（可选用内置字体）</span>
+      </div>
+      <div class="control">
+        <label>字号 (ppem)</label>
+        <input type="number" id="ppem" value="12" min="8" max="72" step="1" />
+      </div>
+      <div class="control">
+        <label>微调 (hinting)</label>
+        <label class="switch"><input type="checkbox" id="hinting" checked /> 启用</label>
+      </div>
+      <div class="control">
+        <label>系统参照字体名</label>
+        <input type="text" id="system-family" value="Arial" />
+      </div>
+      <div class="control">
+        <button id="run">渲染并对比</button>
+      </div>
+    </section>
+
+    <section class="controls">
+      <div class="control grow">
+        <label>输入文字</label>
+        <input type="text" id="text-input" value="Hamburgefons 字体渲染测试 中华人民共和国 0123456789" />
+      </div>
+      <div class="control">
+        <label>示例</label>
+        <span class="presets">
+          <button data-text="Hamburgefons Hamburgefons">Latin</button>
+          <button data-text="永堃蘖爩龘齉">中文生僻</button>
+          <button data-text="字体微调 笔画对齐像素网格">中文常用</button>
+          <button data-text="iii lll --- === 。、，；：">细笔画</button>
+        </span>
+      </div>
+    </section>
+
+    <section class="metrics-bar" id="metrics-bar">
+      <span class="metric">缓存命中 <b id="m-hits">–</b></span>
+      <span class="metric">栅格化字形 <b id="m-count">–</b></span>
+      <span class="metric">单字均时 <b id="m-time">–</b></span>
+      <span class="metric">差异像素 <b id="m-diff">–</b></span>
+      <span class="metric">平均灰度误差 <b id="m-mae">–</b></span>
+      <span class="metric" id="m-verdict"></span>
+    </section>
+
+    <main class="compare">
+      <figure class="pane">
+        <figcaption>自研 WASM 渲染</figcaption>
+        <div class="canvas-wrap"><canvas id="ours-canvas"></canvas></div>
+      </figure>
+      <figure class="pane">
+        <figcaption>系统渲染 (Canvas 2D)</figcaption>
+        <div class="canvas-wrap"><canvas id="system-canvas"></canvas></div>
+      </figure>
+      <figure class="pane">
+        <figcaption>逐像素差异 (红色 = 超阈值)</figcaption>
+        <div class="canvas-wrap"><canvas id="diff-canvas"></canvas></div>
+      </figure>
+    </main>
+
+    <section class="zoom-row">
+      <label>缩放 <input type="range" id="zoom" min="1" max="12" value="4" /></label>
+      <span id="zoom-label" class="muted">4×</span>
+      <span class="muted">小字号建议放大观察网格对齐效果</span>
+    </section>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
