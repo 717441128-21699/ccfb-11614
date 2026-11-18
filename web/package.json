@@ -1,0 +1,17 @@
+{
+  "name": "ttengine-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "自研 TrueType 渲染引擎的对比演示界面(WASM 核心 + TS 界面)",
+  "type": "module",
+  "scripts": {
+    "build:wasm": "node scripts/build-wasm.mjs",
+    "build:ts": "tsc -p tsconfig.json",
+    "build": "npm run build:wasm && npm run build:ts",
+    "serve": "node scripts/serve.mjs",
+    "smoke": "node scripts/wasm-smoke.mjs",
+    "headless": "node scripts/headless-check.mjs",
+    "dev": "npm run build && npm run serve"
+  },
+  "license": "MIT"
+}

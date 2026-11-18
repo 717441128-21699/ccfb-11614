@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ttengine · 自研 TrueType 渲染对比</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header>
+    <h1>ttengine</h1>
+    <p class="sub">Rust + WebAssembly 自研 TrueType 解析 / 微调 / 栅格化 —— 与系统渲染逐像素对比</p>
+  </header>
+
+  <section class="controls">
+    <label class="ctl">
+      <span>字体文件</span>
+      <input type="file" id="font-file" accept=".ttf,.ttc,.otf" />
+    </label>
+    <label class="ctl small">
+      <span>字号 px</span>
+      <input type="number" id="ppem" value="24" min="8" max="96" step="1" />
+    </label>
+    <label class="ctl grow">
+      <span>输入文字</span>
+      <textarea id="text-input" rows="1">永的一是中国 Helvetica 永的一是中国</textarea>
+    </label>
+    <button id="run-btn">渲染并对比</button>
+  </section>
+
+  <div id="status" class="status">正在初始化…</div>
+
+  <section class="metrics" id="diff-result"></section>
+  <div id="hint-stats" class="hint-stats"></div>
+
+  <section class="compare">
+    <figure>
+      <figcaption>自研引擎(WASM · 扫描线解析覆盖率)</figcaption>
+      <canvas id="canvas-ours"></canvas>
+    </figure>
+    <figure>
+      <figcaption>系统渲染(FontFace / DirectWrite)</figcaption>
+      <canvas id="canvas-system"></canvas>
+    </figure>
+    <figure>
+      <figcaption>差异热力图<span class="legend"><i class="r"></i>自研独有 <i class="b"></i>系统独有 <i class="y"></i>轻微差异</span></figcaption>
+      <canvas id="canvas-diff"></canvas>
+    </figure>
+  </section>
+
+  <footer>
+    核心零外部 crate · 纯 Rust 编译 wasm32-unknown-unknown · 覆盖率栅格化 + TrueType 字节码微调 VM
+  </footer>
+
+  <script type="module" src="./dist/main.js"></script>
+</body>
+</html>

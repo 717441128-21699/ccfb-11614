@@ -16,3 +16,13 @@ node_modules/
 __pycache__/
 .venv/
 venv/
+
+# Rust / WASM 构建产物
+core/target/
+web/dist/
+web/wasm/*.wasm
+web/node_modules/
+
+# 渲染样本输出
+core/test-out/
+
